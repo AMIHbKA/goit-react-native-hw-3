@@ -19,6 +19,7 @@ export const pixels = {
   width: {
     5: getPixelsWidth(5),
     10: getPixelsWidth(10),
+    14: getPixelsWidth(14),
     15: getPixelsWidth(15),
     16: getPixelsWidth(16),
     20: getPixelsWidth(20),
@@ -38,6 +39,7 @@ export const pixels = {
   height: {
     5: getPixelsHeight(5),
     10: getPixelsHeight(10),
+    14: getPixelsHeight(14),
     15: getPixelsHeight(15),
     16: getPixelsHeight(16),
     20: getPixelsHeight(20),

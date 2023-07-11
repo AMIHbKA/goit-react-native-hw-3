@@ -1,25 +1,38 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { pixels } from "../../utilities/adptivePixels";
+
+const ErrorMessage = ({ error, errorText }) =>
+  error && (
+    <Text style={styles.errorMessage}>
+      {errorText ? errorText : "Невалідні дані!"}
+    </Text>
+  );
 
 export const Input = (props) => {
   const [isFocused, setIsFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => setIsFocused(false);
-  const handleShowPassword = () => setShowPassword(!showPassword);
+  const handleFocus = useCallback(() => setIsFocused(true));
+  const handleBlur = useCallback(() => setIsFocused(false));
+  const handleShowPassword = useCallback(() => setShowPassword(!showPassword));
 
-  const textInputProps = {
+  const textInputProps = useMemo(() => ({
     ...props,
-    style: [styles.input, props.style, isFocused && styles.focused],
+    style: [
+      styles.input,
+      props.style,
+      isFocused && styles.focused,
+      props.error && styles.error,
+    ],
     placeholderTextColor: "#BDBDBD",
     onFocus: handleFocus,
     onBlur: handleBlur,
-  };
+  }));
 
   return props.password ? (
     <View>
+      <ErrorMessage error={props.error} errorText={props.errorText} />
       <TextInput {...textInputProps} secureTextEntry={!showPassword} />
       <Pressable onPress={handleShowPassword}>
         <Text style={styles.buttonShowPassword}>
@@ -28,7 +41,10 @@ export const Input = (props) => {
       </Pressable>
     </View>
   ) : (
-    <TextInput {...textInputProps} />
+    <View>
+      <ErrorMessage error={props.error} errorText={props.errorText} />
+      <TextInput {...textInputProps} />
+    </View>
   );
 };
 
@@ -60,5 +76,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     color: "#1B4371",
+  },
+  error: {
+    borderColor: "red",
+  },
+  errorMessage: {
+    fontSize: pixels.height[14],
+    paddingHorizontal: pixels.width[10],
+    paddingBottom: pixels.height[5],
+    color: "red",
   },
 });

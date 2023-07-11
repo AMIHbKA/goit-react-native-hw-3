@@ -11,7 +11,7 @@ export function validateLogin(login) {
 
 export function validatePassword(password) {
   const passwordPattern = new RegExp(
-    "^(?=.*[A-ZА-ЯЁІЄЇ])(?=.*[0-9])(?=.*[a-zа-яёіїє])[A-Za-zА-Яа-яЁёіІїЇєЄ0-9\\s.;:',]{8,32}$"
+    "^(?=.*[A-ZА-ЯЁІЄЇ])(?=.*[0-9])(?=.*[a-zа-яёіїє])[A-Za-zА-Яа-яЁёіІїЇєЄ0-9\\s.,!?;:']{8,32}$"
   );
 
   return passwordPattern.test(password);

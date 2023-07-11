@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -13,21 +14,77 @@ import { FormLayout } from "../../components/FormLayout/FormLayout";
 import { Input } from "../../components/Input/Input";
 import { ScrollContainer } from "../../components/ScrollContainer/ScrollContainer";
 import { pixels } from "../../utilities/adptivePixels";
+import { validateEmail, validatePassword } from "../../utilities/validation";
 
 export const LoginScreen = () => {
+  const initialValuesForm = { email: "", password: "" };
+  const [formValues, setFormValues] = useState(initialValuesForm);
+  const [errors, setErrors] = useState({
+    email: false,
+    password: false,
+  });
+
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+
+  const handleChange = (name) => (text) => {
+    setFormValues((prevState) => ({ ...prevState, [name]: text }));
+  };
+
   const handlePress = () => {
     Keyboard.dismiss();
   };
 
+  const handleSubmit = () => {
+    const { email, password } = formValues;
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+    const newFormValues = {
+      email: trimmedEmail,
+      password: trimmedPassword,
+    };
+
+    const newErrors = {
+      email: !validateEmail(trimmedEmail),
+      password: !validatePassword(trimmedPassword),
+    };
+
+    if (!newErrors.email && !newErrors.password) {
+      console.log("Login successful!");
+      console.log(newFormValues);
+      setFormValues(initialValuesForm);
+    } else {
+      setFormValues(newFormValues);
+    }
+
+    setErrors(newErrors);
+  };
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener("keyboardShow", () => {
+      setIsKeyboardVisible(true);
+      console.log("keyboard:true", keyboardDidShowListener);
+    });
+
+    const keyboardDidHideListener = Keyboard.addListener("keyboardHide", () => {
+      setIsKeyboardVisible(false);
+      console.log("keyboard:false");
+    });
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
   return (
     <>
       <Background />
-      <TouchableWithoutFeedback onPress={handlePress}>
+      <FormLayout height="60%">
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.container}
         >
-          <FormLayout height="60%">
+          <TouchableWithoutFeedback onPress={handlePress}>
             <ScrollContainer>
               <Text style={styles.text}>Увійти</Text>
               <View style={styles.border}>
@@ -35,34 +92,45 @@ export const LoginScreen = () => {
                   placeholder="Адреса електронної пошти"
                   textContentType="emailAddress"
                   style={{ marginBottom: pixels.height[16] }}
+                  value={formValues.email}
+                  onChangeText={handleChange("email")}
+                  error={errors.email}
+                  errorText="Введіть дійсну електронну адресу"
                 />
                 <Input
                   placeholder="Пароль"
                   textContentType="password"
+                  value={formValues.password}
+                  onChangeText={handleChange("password")}
+                  error={errors.password}
+                  errorText="Пароль: 8-32 символи, латиниця/кирилиця, 1 велика літера, 1 цифра, пробіли і розділові знаки дозволені"
                   password
                 />
               </View>
-              <ButtonMain
-                text="Увійти"
-                style={{ marginTop: pixels.height[43] }}
-              />
+              {!isKeyboardVisible && (
+                <ButtonMain
+                  text="Увійти"
+                  style={{ marginTop: pixels.height[43] }}
+                  onPress={handleSubmit}
+                />
+              )}
               <ButtonLink
                 text="Немає акаунту? Зареєструватися"
-                style={{ marginTop: pixels.height[16], textAlign: "center" }}
+                style={{
+                  marginTop: pixels.height[16],
+                  textAlign: "center",
+                }}
               />
             </ScrollContainer>
-          </FormLayout>
+          </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
+      </FormLayout>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // paddingBottom: pixels.height[60],
-  },
+  container: {},
   text: {
     marginVertical: pixels.height[32],
     fontSize: pixels.height[30],
