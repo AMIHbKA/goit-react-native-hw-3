@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { pixels } from "../../utility/adptivePixels";
+import { pixels } from "../../utilities/adptivePixels";
 
 export const Input = (props) => {
   const [isFocused, setIsFocused] = useState(false);

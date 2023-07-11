@@ -7,9 +7,9 @@ export default function App() {
   return (
     <>
       <StatusBar />
-      {/* <RegistrationScreen /> */}
+      <RegistrationScreen />
       {/* <LoginScreen /> */}
-      <PostsScreen />
+      {/* <PostsScreen /> */}
     </>
   );
 }

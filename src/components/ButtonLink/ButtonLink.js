@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text } from "react-native";
-import { pixels } from "../../utility/adptivePixels";
+import { pixels } from "../../utilities/adptivePixels";
 
 export const ButtonLink = ({ text, style }) => {
   return (

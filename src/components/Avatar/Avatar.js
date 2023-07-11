@@ -8,7 +8,7 @@ import {
 import { AddPhotoIcon, DelPhotoIcon } from "../UI/icons";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
-import { pixels } from "../../utility/adptivePixels";
+import { pixels } from "../../utilities/adptivePixels";
 
 export const Avatar = () => {
   const [image, setImage] = useState(null);

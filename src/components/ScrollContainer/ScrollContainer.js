@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet } from "react-native";
-import { pixels } from "../../utility/adptivePixels";
+import { pixels } from "../../utilities/adptivePixels";
 
 export const ScrollContainer = ({ children }) => {
   return <ScrollView style={styles.view}>{children}</ScrollView>;

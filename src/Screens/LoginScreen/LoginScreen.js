@@ -12,7 +12,7 @@ import { ButtonMain } from "../../components/ButtonMain/ButtonMain";
 import { FormLayout } from "../../components/FormLayout/FormLayout";
 import { Input } from "../../components/Input/Input";
 import { ScrollContainer } from "../../components/ScrollContainer/ScrollContainer";
-import { pixels } from "../../utility/adptivePixels";
+import { pixels } from "../../utilities/adptivePixels";
 
 export const LoginScreen = () => {
   const handlePress = () => {
@@ -22,11 +22,11 @@ export const LoginScreen = () => {
   return (
     <>
       <Background />
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : null}
-        style={styles.container}
-      >
-        <TouchableWithoutFeedback onPress={handlePress}>
+      <TouchableWithoutFeedback onPress={handlePress}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.container}
+        >
           <FormLayout height="60%">
             <ScrollContainer>
               <Text style={styles.text}>Увійти</Text>
@@ -52,15 +52,16 @@ export const LoginScreen = () => {
               />
             </ScrollContainer>
           </FormLayout>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    // paddingBottom: pixels.height[60],
   },
   text: {
     marginVertical: pixels.height[32],
