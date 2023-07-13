@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -23,8 +23,6 @@ export const LoginScreen = () => {
     email: false,
     password: false,
   });
-
-  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
   const handleChange = (name) => (text) => {
     setFormValues((prevState) => ({ ...prevState, [name]: text }));
@@ -59,23 +57,6 @@ export const LoginScreen = () => {
     setErrors(newErrors);
   };
 
-  useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener("keyboardShow", () => {
-      setIsKeyboardVisible(true);
-      console.log("keyboard:true", keyboardDidShowListener);
-    });
-
-    const keyboardDidHideListener = Keyboard.addListener("keyboardHide", () => {
-      setIsKeyboardVisible(false);
-      console.log("keyboard:false");
-    });
-
-    return () => {
-      keyboardDidShowListener.remove();
-      keyboardDidHideListener.remove();
-    };
-  }, []);
-
   return (
     <>
       <Background />
@@ -107,13 +88,12 @@ export const LoginScreen = () => {
                   password
                 />
               </View>
-              {!isKeyboardVisible && (
-                <ButtonMain
-                  text="Увійти"
-                  style={{ marginTop: pixels.height[43] }}
-                  onPress={handleSubmit}
-                />
-              )}
+
+              <ButtonMain
+                text="Увійти"
+                style={{ marginTop: pixels.height[43] }}
+                onPress={handleSubmit}
+              />
               <ButtonLink
                 text="Немає акаунту? Зареєструватися"
                 style={{
@@ -130,7 +110,7 @@ export const LoginScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: { borderWidth: 1 },
   text: {
     marginVertical: pixels.height[32],
     fontSize: pixels.height[30],

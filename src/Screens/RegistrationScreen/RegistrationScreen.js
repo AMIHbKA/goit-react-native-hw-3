@@ -71,7 +71,7 @@ export const RegistrationScreen = () => {
       <TouchableWithoutFeedback onPress={handlePress}>
         <FormLayout>
           <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            behavior={Platform.OS === "ios" ? "padding" : null}
             style={styles.container}
           >
             <Avatar />
@@ -108,6 +108,7 @@ export const RegistrationScreen = () => {
                   password
                 />
               </View>
+
               <ButtonMain
                 text="Зареєструватися"
                 style={{
