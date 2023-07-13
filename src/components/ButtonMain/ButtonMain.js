@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { pixels } from "../../utility/adptivePixels";
+import { pixels } from "../../utilities/adptivePixels";
 
 export const ButtonMain = (props) => {
   return (
-    <TouchableOpacity style={[styles.button, props.style]}>
+    <TouchableOpacity {...props} style={[styles.button, props.style]}>
       <Text style={styles.buttonText}>{props.text}</Text>
     </TouchableOpacity>
   );

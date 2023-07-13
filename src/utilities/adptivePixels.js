@@ -19,6 +19,7 @@ export const pixels = {
   width: {
     5: getPixelsWidth(5),
     10: getPixelsWidth(10),
+    14: getPixelsWidth(14),
     15: getPixelsWidth(15),
     16: getPixelsWidth(16),
     20: getPixelsWidth(20),
@@ -31,12 +32,14 @@ export const pixels = {
     50: getPixelsWidth(50),
     60: getPixelsWidth(60),
     112: getPixelsWidth(112),
+    110: getPixelsWidth(110),
     120: getPixelsWidth(120),
     375: getPixelsWidth(375),
   },
   height: {
     5: getPixelsHeight(5),
     10: getPixelsHeight(10),
+    14: getPixelsHeight(14),
     15: getPixelsHeight(15),
     16: getPixelsHeight(16),
     20: getPixelsHeight(20),
@@ -48,7 +51,8 @@ export const pixels = {
     43: getPixelsHeight(43),
     50: getPixelsHeight(50),
     60: getPixelsHeight(60),
+    100: getPixelsHeight(100),
+    110: getPixelsHeight(110),
     120: getPixelsHeight(120),
-    1000: getPixelsHeight(1000),
   },
 };

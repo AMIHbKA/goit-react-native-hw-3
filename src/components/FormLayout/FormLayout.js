@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import { pixels } from "../../utility/adptivePixels";
+import { pixels } from "../../utilities/adptivePixels";
 
 export const FormLayout = ({ children, height }) => {
   return (
